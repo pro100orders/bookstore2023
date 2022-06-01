@@ -9,6 +9,7 @@ import Books from "../pages/Books/Books";
 import Basket from "../pages/Basket/Basket";
 import Authors from "../pages/Authors/Authors";
 import BookDetails from "../components/Books/BookDetails/BookDetails";
+import Admin from '../pages/Admin/Admin';
 
 const AppRoutes = () => {
 
@@ -44,6 +45,7 @@ const AppRoutes = () => {
 
         if (roles && roles.includes("ROLE_ADMIN")) {
             const adminRoutes = [
+                {path: "/admin", component: Admin},
                 {path: "/categories", component: Categories},
                 {path: "/authors", component: Authors},
             ];
