@@ -58,10 +58,7 @@ const Profile = ({setModalProfile, setModalProfileEdit}) => {
                 </Button>
             </div>
             <div style={{marginTop: 2}}>
-                <Button variant="contained" color="primary" onClick={e => {
-                    setModalProfile(false);
-                    setModalProfileEdit(true);
-                }}>
+                <Button variant="contained" color="primary">
                     Мої замовлення
                 </Button>
             </div>
