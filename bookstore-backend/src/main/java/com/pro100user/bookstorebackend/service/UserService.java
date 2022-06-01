@@ -16,6 +16,9 @@ public interface UserService {
     User findByEmail(String email);
     User findByPhone(String phone);
 
-    List<BookListDTO> getWishList(Long id);
+    List<BookListDTO> getWishList(Long userId);
     BookListDTO toggleWishList(Long userId, Long bookId);
+
+    List<BookListDTO> getBasket(Long userId);
+    BookListDTO toggleBasket(Long userId, Long bookId);
 }

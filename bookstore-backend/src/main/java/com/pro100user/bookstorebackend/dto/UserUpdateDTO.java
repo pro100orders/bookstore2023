@@ -38,6 +38,8 @@ public class UserUpdateDTO {
     @Size(max = 64, message = "Phone must be up to 64")
     private String phone;
 
+    private String address;
+
     @NotNull
     @NotBlank(message = "Password cannot be empty")
     @Size(min = 8, max = 64, message = "Password must be between 8 and 64")

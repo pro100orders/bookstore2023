@@ -1,0 +1,25 @@
+.login-form {
+  width: 50vw;
+  height: 100vh;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.login-form__subtitle {
+  color: rgb(180, 184, 193);
+}
+
+.login-form__form {
+  max-width: 360px;
+}
+
+.link_login-form {
+  font-size: 16px;
+  margin: 10px;
+  text-decoration: none;
+  color: blue;
+}

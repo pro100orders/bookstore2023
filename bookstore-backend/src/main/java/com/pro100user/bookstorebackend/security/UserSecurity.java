@@ -1,12 +1,14 @@
 package com.pro100user.bookstorebackend.security;
 
 import com.pro100user.bookstorebackend.entity.User;
+import com.pro100user.bookstorebackend.entity.enums.Role;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
@@ -16,6 +18,7 @@ public class UserSecurity implements UserDetails {
     private String email;
     private String password;
     private boolean enabled;
+    private List<Role> roles;
 
     private Collection<? extends GrantedAuthority> authorities;
 
@@ -25,6 +28,7 @@ public class UserSecurity implements UserDetails {
         userSecurity.email = user.getEmail();
         userSecurity.password = user.getPassword();
         userSecurity.enabled = user.isEnabled();
+        userSecurity.roles = user.getRoles();
         userSecurity.authorities = user.getRoles()
                 .stream()
                 .map(role -> new SimpleGrantedAuthority(role.name()))

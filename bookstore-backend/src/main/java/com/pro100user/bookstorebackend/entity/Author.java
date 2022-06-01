@@ -5,9 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -30,6 +28,7 @@ public class Author implements Serializable {
     private String surname;
 
 
-    @ManyToMany(mappedBy = "authors", fetch = FetchType.LAZY, targetEntity = Book.class)
+    @ManyToMany(mappedBy = "authors", fetch = FetchType.LAZY,
+            targetEntity = Book.class)
     private List<Book> books = new ArrayList<>();
 }

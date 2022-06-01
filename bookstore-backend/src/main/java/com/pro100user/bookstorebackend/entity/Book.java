@@ -2,15 +2,12 @@ package com.pro100user.bookstorebackend.entity;
 
 
 import com.pro100user.bookstorebackend.entity.enums.Language;
-import com.pro100user.bookstorebackend.entity.enums.Type;
 import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -29,7 +26,7 @@ public class Book implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @ManyToMany(fetch = FetchType.EAGER, targetEntity = Author.class)
+    @ManyToMany(fetch = FetchType.LAZY, targetEntity = Author.class)
     @JoinTable(
             name = "author_books",
             joinColumns = @JoinColumn(name = "book_id"),
@@ -43,7 +40,7 @@ public class Book implements Serializable {
     @Column(name = "image")
     private String image;
 
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Category.class)
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Category.class)
     @JoinColumn(name = "category_id")
     private Category category;
 
@@ -68,13 +65,6 @@ public class Book implements Serializable {
 
     @Column(name = "number_pages", nullable = false)
     private int numberPages;
-
-    @Column(name = "circulation")
-    private int circulation;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "type", nullable = false)
-    private Type type;
 
 
     @ManyToMany(mappedBy = "books", fetch = FetchType.LAZY, targetEntity = Basket.class)

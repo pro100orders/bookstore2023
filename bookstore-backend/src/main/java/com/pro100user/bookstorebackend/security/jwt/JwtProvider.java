@@ -1,5 +1,6 @@
 package com.pro100user.bookstorebackend.security.jwt;
 
+import com.pro100user.bookstorebackend.exception.JwtAuthenticationException;
 import com.pro100user.bookstorebackend.security.UserSecurity;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -29,7 +30,7 @@ public class JwtProvider {
         HashMap<String, Object> claims = new HashMap<>();
         claims.put("id", user.getId());
         claims.put("email", user.getUsername());
-        claims.put("roles", user.getAuthorities());
+        claims.put("roles", user.getRoles());
         claims.put("enabled", user.isEnabled());
         return Jwts.builder()
                 .setClaims(claims)
@@ -39,8 +40,12 @@ public class JwtProvider {
     }
 
     public boolean validateToken(String token) {
-        Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
-        return true;
+        try {
+            Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
+            return true;
+        } catch (Exception e) {
+            throw new JwtAuthenticationException("Jwt is not valid!");
+        }
     }
 
     public String getLoginFromToken(String token) {

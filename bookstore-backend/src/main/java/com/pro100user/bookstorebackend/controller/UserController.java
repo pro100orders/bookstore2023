@@ -1,6 +1,7 @@
 package com.pro100user.bookstorebackend.controller;
 
 import com.pro100user.bookstorebackend.annotation.CurrentUser;
+import com.pro100user.bookstorebackend.dto.BookListDTO;
 import com.pro100user.bookstorebackend.dto.UserDTO;
 import com.pro100user.bookstorebackend.dto.UserUpdateDTO;
 import com.pro100user.bookstorebackend.mapper.UserMapper;
@@ -17,6 +18,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("user")
+@CrossOrigin(value = "http://localhost:3000")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class UserController {
 
@@ -45,14 +47,33 @@ public class UserController {
         return userService.delete(userSecurity.getId());
     }
 
-    /*@GetMapping("/wish-list")
-    public List<BookDTO> wishList(@CurrentUser CustomUserDetails user) {
-        return userService.getWishList(user.getUsername());
-    }*/
+    @GetMapping("/wish-list")
+    public List<BookListDTO> wishList(
+            @CurrentUser UserSecurity userSecurity
+    ) {
+        return userService.getWishList(userSecurity.getId());
+    }
 
-    /*@PostMapping("/wish-list")
-    public BookDTO wishList(@CurrentUser CustomUserDetails user,
-                                            @RequestBody Long id) {
-        return userService.toggleWishList(user.getUsername(), id);
-    }*/
+    @PostMapping("/wish-list")
+    public BookListDTO toggleWishList(
+            @CurrentUser UserSecurity userSecurity,
+            @RequestBody Long bookId
+    ) {
+        return userService.toggleWishList(userSecurity.getId(), bookId);
+    }
+
+    @GetMapping("/basket")
+    public List<BookListDTO> basket(
+            @CurrentUser UserSecurity userSecurity
+    ) {
+        return userService.getBasket(userSecurity.getId());
+    }
+
+    @PostMapping("/basket")
+    public BookListDTO toggleBasket(
+            @CurrentUser UserSecurity userSecurity,
+            @RequestBody Long bookId
+    ) {
+        return userService.toggleBasket(userSecurity.getId(), bookId);
+    }
 }

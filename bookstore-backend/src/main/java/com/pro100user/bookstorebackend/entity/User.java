@@ -24,20 +24,23 @@ public class User implements Serializable {
     @Column(name = "id", nullable = false, updatable = false, unique = true)
     private Long id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "surname", nullable = false)
+    @Column(name = "surname")
     private String surname;
 
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "phone", nullable = false, unique = true)
+    @Column(name = "phone", unique = true)
     private String phone;
 
     @Column(name = "password", nullable = false)
     private String password;
+
+    @Column(name = "address")
+    private String address;
 
     @ElementCollection(fetch = FetchType.EAGER, targetClass = Role.class)
     @CollectionTable(

@@ -1,13 +1,8 @@
 package com.pro100user.bookstorebackend.dto;
 
 import com.pro100user.bookstorebackend.entity.enums.Language;
-import com.pro100user.bookstorebackend.entity.enums.Type;
 import lombok.*;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.util.List;
 
 @Getter
@@ -25,6 +20,8 @@ public class BookDTO {
 
     private double price;
 
+    private String image;
+
     private CategoryDTO category;
 
     private String publishing;
@@ -41,9 +38,5 @@ public class BookDTO {
 
     private int numberPages;
 
-    private int circulation;
-
-    private Type type;
-
-    //TODO: add wishlist
+    private boolean isLike;
 }

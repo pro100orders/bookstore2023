@@ -1,7 +1,6 @@
 package com.pro100user.bookstorebackend.dto;
 
 import com.pro100user.bookstorebackend.entity.enums.Language;
-import com.pro100user.bookstorebackend.entity.enums.Type;
 import lombok.*;
 
 import javax.validation.constraints.Min;
@@ -27,7 +26,7 @@ public class BookUpdateDTO {
     private String name;
 
     @NotNull
-    private List<Long> authorsId;
+    private List<AuthorDTO> authors;
 
     @NotNull
     @Min(value = 0, message = "Price cannot be less than 0")
@@ -60,9 +59,4 @@ public class BookUpdateDTO {
     @NotNull
     @Min(value = 1, message = "Number pages cannot be less than 1")
     private int numberPages;
-
-    private int circulation;
-
-    @NotNull
-    private Type type;
 }

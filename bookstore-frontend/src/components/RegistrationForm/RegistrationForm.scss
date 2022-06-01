@@ -1,0 +1,23 @@
+.registration-form {
+  width: 50vw;
+  height: 100vh;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.registration-form__subtitle {
+  color: rgb(180, 184, 193);
+}
+
+.registration-form__form {
+  max-width: 360px;
+}
+
+.link {
+  font-size: 12px;
+  margin: 5px;
+}
