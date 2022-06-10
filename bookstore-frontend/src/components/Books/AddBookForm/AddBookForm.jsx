@@ -62,7 +62,7 @@ const AddBookForm = ({setBooks, setOpen}) => {
                 if (file != null) {
                     const fd = new FormData();
                     fd.append("image", file, file.name);
-                    $api.post("/books/photo/" + response.data.id, fd)
+                    $api.post("/books/image/" + response.data.id, fd)
                         .then(response1 => {
                             console.log(1);
                             setBooks(prevState => [...prevState, response1.data]);

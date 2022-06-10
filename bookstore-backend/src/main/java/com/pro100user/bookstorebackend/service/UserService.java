@@ -21,4 +21,7 @@ public interface UserService {
 
     List<BookListDTO> getBasket(Long userId);
     BookListDTO toggleBasket(Long userId, Long bookId);
+
+    List<OrderDTO> getOrders(Long userId);
+    boolean toOrder(Long userId);
 }

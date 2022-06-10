@@ -84,7 +84,7 @@ const Book = ({book, setBooks, isBasket}) => {
                     )}
                 </Typography>
                 <Typography variant="subtitle1" color="orange">
-                    {book.price}.грн
+                    {book.price}грн.
                 </Typography>
             </CardContent>
             <CardActions style={{display: "flex", justifyContent: "space-between"}}>
@@ -104,14 +104,19 @@ const Book = ({book, setBooks, isBasket}) => {
                             Видалити
                         </Button>
                         :
-                        <Button variant="contained" color="success" onClick={(e) => {
-                            (roles && roles.includes("ROLE_GUEST")) ?
-                                navigateToLogin(2)
-                                :
-                                addToBasket(book.id)
-                        }}>
-                            Купити
-                        </Button>
+                        <div>
+                            {
+                                book.amount !== 0 &&
+                                <Button variant="contained" color="success" onClick={(e) => {
+                                    (roles && roles.includes("ROLE_GUEST")) ?
+                                        navigateToLogin(2)
+                                        :
+                                        addToBasket(book.id)
+                                }}>
+                                    Купити
+                                </Button>
+                            }
+                        </div>
                 }
             </CardActions>
         </Card>

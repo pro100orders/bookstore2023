@@ -7,7 +7,6 @@ import java.util.List;
 
 public interface OrderService {
 
-    OrderDTO create(Long userId);
     OrderDTO getById(Long orderId);
     OrderDTO update(OrderUpdateDTO dto);
     boolean delete(Long orderId);

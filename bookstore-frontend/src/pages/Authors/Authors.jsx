@@ -34,7 +34,7 @@ const Authors = () => {
     }, []);
 
     return (
-        <Container maxWidth="xl" sx={{marginTop: "64px", paddingTop: "10px"}} style={{minHeight: "100vh"}}>
+        <Container maxWidth="xl" sx={{marginTop: "10px", paddingTop: "10px"}} style={{minHeight: "100vh"}}>
             <Button onClick={() => setModalCreate(true)} sx={{border: "1px solid blue", borderRadius: "2px"}}>
                 Додати автора
             </Button>

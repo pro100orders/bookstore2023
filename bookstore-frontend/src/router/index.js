@@ -10,6 +10,7 @@ import Basket from "../pages/Basket/Basket";
 import Authors from "../pages/Authors/Authors";
 import BookDetails from "../components/Books/BookDetails/BookDetails";
 import Admin from '../pages/Admin/Admin';
+import Orders from "../pages/Orders/Orders";
 
 const AppRoutes = () => {
 
@@ -38,6 +39,7 @@ const AppRoutes = () => {
                 {path: "/profile", component: Profile},
                 {path: "/wish-list", component: WishList},
                 {path: "/basket", component: Basket},
+                {path: "/orders", component: Orders},
             ];
 
             setRoutes(routes => routes = routes.concat(userRoutes));

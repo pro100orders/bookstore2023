@@ -33,7 +33,6 @@ function App() {
             <ReduxToastr
                 timeOut={7000}
                 newestOnTop={false}
-                preventDuplicates
                 position='top-right'
                 transitionIn="fadeIn"
                 transitionOut="fadeOut"

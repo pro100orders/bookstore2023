@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 public class OrderUpdateDTO {
 
     @NotNull
-    @Min(value = 1, message = "Category id cannot be less than 1")
+    @Min(value = 1, message = "Order id cannot be less than 1")
     private Long id;
 
     @NotNull

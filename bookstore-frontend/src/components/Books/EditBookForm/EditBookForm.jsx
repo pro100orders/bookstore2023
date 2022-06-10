@@ -81,7 +81,7 @@ const EditBookForm = ({book, setOpen}) => {
                 if (file != null) {
                     const fd = new FormData();
                     fd.append("image", file, file.name);
-                    $api.post("/books/photo/" + response.data.id, fd)
+                    $api.post("/books/image/" + response.data.id, fd)
                         .then(response1 => {
                             setOpen(false);
                             navigate("/books");

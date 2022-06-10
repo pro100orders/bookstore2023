@@ -21,6 +21,21 @@ const Basket = () => {
             });
     }, [])
 
+    const toOrder = () => {
+        $api.post("/user/orders")
+            .then(response => {
+                if (response.data === true) {
+                    setBooks([]);
+                    toastr.success("Bookstore", "Замовлення оформлено");
+                } else {
+                    toastr.error("Bookstore", "Виникли технічні проблеми");
+                }
+            })
+            .catch(reason => {
+                toastr.error("Bookstore", "Виникли технічні проблеми");
+            })
+    }
+
     return (
         <Container maxWidth="xl" sx={{marginTop: "64px", paddingTop: "10px"}} style={{minHeight: "100vh"}}>
             <Typography variant="h2" component="div">
@@ -32,7 +47,7 @@ const Basket = () => {
             {
                 books.length !== 0 &&
                 <div style={{display: "flex", justifyContent: "flex-end"}}>
-                    <Button variant="contained" color="success">Оформити замовлення</Button>
+                    <Button variant="contained" color="success" onClick={() => toOrder()}>Оформити замовлення</Button>
                 </div>
             }
         </Container>

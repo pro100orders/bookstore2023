@@ -74,7 +74,6 @@ const FilterBar = ({
                 getOptionLabel={(option) => {
                     return option.surname + " " + option.name
                 }}
-                style={{margin: "40px"}}
                 renderOption={(props, option, {selected}) => (
                     <li {...props}>
                         <Checkbox
@@ -88,7 +87,7 @@ const FilterBar = ({
                 )}
                 style={{width: "300px"}}
                 renderInput={(params) => (
-                    <TextField {...params} label="Автори" placeholder="Автори"/>
+                    <TextField {...params} label="Автори" placeholder="Автори" style={{margin: "0 0 3px 0"}}/>
                 )}
             />
             <Autocomplete
@@ -113,7 +112,7 @@ const FilterBar = ({
                 )}
                 style={{width: "300px"}}
                 renderInput={(params) => (
-                    <TextField {...params} label="Категорії" placeholder="Категорії"/>
+                    <TextField {...params} label="Категорії" placeholder="Категорії" style={{margin: "3px 0 3px 0"}}/>
                 )}
             />
             <Autocomplete
@@ -138,7 +137,7 @@ const FilterBar = ({
                 )}
                 style={{width: "300px"}}
                 renderInput={(params) => (
-                    <TextField {...params} label="Мови" placeholder="Мови"/>
+                    <TextField {...params} label="Мови" placeholder="Мови" style={{margin: "3px 0 3px 0"}}/>
                 )}
             />
         </List>

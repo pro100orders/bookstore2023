@@ -30,17 +30,17 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public String save(MultipartFile file, Long userId) {
+    public String save(MultipartFile file, Long productId) {
         try {
-            File avatar = new File(filepath + userId.toString() + file.getOriginalFilename());
-            if (!avatar.exists()) {
-                avatar.createNewFile();
+            File image = new File(filepath + productId.toString() + file.getOriginalFilename());
+            if (!image.exists()) {
+                image.createNewFile();
             }
-            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(avatar));
+            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(image));
             bos.write(file.getBytes());
             bos.flush();
             bos.close();
-            return userId.toString() + file.getOriginalFilename();
+            return productId.toString() + file.getOriginalFilename();
         } catch (IOException e) {
             return null;
         }
@@ -49,11 +49,11 @@ public class ImageServiceImpl implements ImageService {
     @Override
     public boolean update(String filename, MultipartFile file) {
         try {
-            File avatar = new File(filepath + filename);
-            if (!avatar.exists()) {
-                avatar.createNewFile();
+            File image = new File(filepath + filename);
+            if (!image.exists()) {
+                image.createNewFile();
             }
-            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(avatar));
+            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(image));
             bos.write(file.getBytes());
             bos.flush();
             bos.close();
@@ -65,9 +65,9 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public boolean delete(String filename) {
-        File avatar = new File(filepath + filename);
-        if (avatar.exists()) {
-            return avatar.delete();
+        File image = new File(filepath + filename);
+        if (image.exists()) {
+            return image.delete();
         }
         return false;
     }

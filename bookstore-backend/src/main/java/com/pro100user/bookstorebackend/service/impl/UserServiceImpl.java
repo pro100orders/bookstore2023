@@ -3,12 +3,16 @@ package com.pro100user.bookstorebackend.service.impl;
 import com.pro100user.bookstorebackend.dto.*;
 import com.pro100user.bookstorebackend.entity.Basket;
 import com.pro100user.bookstorebackend.entity.Book;
+import com.pro100user.bookstorebackend.entity.Order;
 import com.pro100user.bookstorebackend.entity.User;
 import com.pro100user.bookstorebackend.entity.enums.Role;
+import com.pro100user.bookstorebackend.entity.enums.Status;
 import com.pro100user.bookstorebackend.mapper.BookMapper;
+import com.pro100user.bookstorebackend.mapper.OrderMapper;
 import com.pro100user.bookstorebackend.mapper.UserMapper;
 import com.pro100user.bookstorebackend.repository.BasketRepository;
 import com.pro100user.bookstorebackend.repository.BookRepository;
+import com.pro100user.bookstorebackend.repository.OrderRepository;
 import com.pro100user.bookstorebackend.repository.UserRepository;
 import com.pro100user.bookstorebackend.service.BasketService;
 import com.pro100user.bookstorebackend.service.BookService;
@@ -40,6 +44,9 @@ public class UserServiceImpl implements UserService {
     private final BookMapper bookMapper;
 
     private final BasketRepository basketRepository;
+
+    private final OrderRepository orderRepository;
+    private final OrderMapper orderMapper;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -177,5 +184,33 @@ public class UserServiceImpl implements UserService {
             basketRepository.save(basket);
         }
         return bookMapper.toBookListDTO(book, null);
+    }
+
+    @Override
+    public List<OrderDTO> getOrders(Long userId) {
+        User user = userRepository.findById(userId).orElseThrow();
+        return orderMapper.toOrderDTO(
+                user.getOrders()
+        );
+    }
+
+    @Override
+    public boolean toOrder(Long userId) {
+        User user = userRepository.findById(userId).orElseThrow();
+        if(user.getBasket() == null || user.getBasket().getBooks().isEmpty()) {
+            return false;
+        }
+        Order order = Order.builder()
+                .user(user)
+                .books(user.getBasket().getBooks())
+                .totalPrice(user.getBasket().getTotalPrice())
+                .status(Status.Оформлено)
+                .build();
+        order.getBooks().forEach(book -> book.setAmount(book.getAmount() - 1));
+        orderRepository.save(order);
+        user.getBasket().setBooks(new ArrayList<>());
+        user.getBasket().setTotalPrice(0);
+        basketRepository.save(user.getBasket());
+        return true;
     }
 }

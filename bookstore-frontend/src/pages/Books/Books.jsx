@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useSelector} from "react-redux";
 import $api from "../../http";
 import {toastr} from "react-redux-toastr";
-import {Button, Container, FormControl, InputLabel, MenuItem, Pagination, Select} from "@mui/material";
+import {Button, Container, FormControl, InputLabel, MenuItem, Pagination, Select, TextField} from "@mui/material";
 import MyModal from "../../components/UI/Modal/MyModal";
 import AddBookForm from "../../components/Books/AddBookForm/AddBookForm";
 import BooksList from "../../components/Books/BooksList/BooksList";
@@ -26,6 +26,8 @@ const Books = () => {
     const [selectedCategories, setSelectedCategories] = useState([]);
     const [selectedLanguages, setSelectedLanguages] = useState([]);
 
+    const [search, setSearch] = useState('');
+
     useEffect(() => {
         setLoading(true);
         $api.get("/books")
@@ -38,15 +40,31 @@ const Books = () => {
             });
     }, [])
 
-    useEffect(() => {
-        setFilterBooks(books);
-        if (selectedCategories.length !== 0) {
-            console.log(1);
-            console.log(books);
-            console.log(selectedCategories.category);
-            console.log(books.filter(book => selectedCategories.category.includes(book.category)));
-            //setFilterBooks(books.filter(book => selectedCategories.category.includes(book.category)));
+    async function filter() {
+        let filter = books;
+        if (selectedAuthors.author && selectedAuthors.author.length !== 0) {
+            let list = selectedAuthors.author.map(author => author.surname + " " + author.name);
+            filter = filter.filter(book => {
+                if (book.authors) {
+                    return book.authors.some(author => list.includes(author.surname + " " + author.name));
+                } else {
+                    return false;
+                }
+            });
         }
+        if (selectedCategories.category && selectedCategories.category.length !== 0) {
+            let list = selectedCategories.category.map(category => category.name);
+            filter = filter.filter(book => list.includes(book.category.name));
+        }
+        if (selectedLanguages.language && selectedLanguages.language.length !== 0) {
+            let list = selectedLanguages.language;
+            filter = filter.filter(book => list.includes(book.language));
+        }
+        return filter;
+    }
+
+    useEffect(() => {
+        filter().then(response => setFilterBooks(response));
     }, [books, selectedAuthors, selectedCategories, selectedLanguages])
 
     useEffect(() => {
@@ -59,8 +77,19 @@ const Books = () => {
             });
     }, [])
 
+    const toSearch = () => {
+        $api.get("/books?search=" + search)
+            .then(response => {
+                setBooks(response.data);
+                setAllPage(response.data.length);
+            })
+            .catch(reason => {
+                toastr.error("Bookstore", "Виникли технічні проблеми");
+            });
+    }
+
     return (
-        <Container maxWidth="xl" sx={{marginTop: "64px", paddingTop: "10px"}} style={{minHeight: "100vh"}}>
+        <Container maxWidth="xl" sx={{marginTop: "10px", paddingTop: "10px"}} style={{minHeight: "100vh"}}>
             <div style={{display: "flex", justifyContent: "space-between"}}>
                 <div>
                     {
@@ -73,6 +102,17 @@ const Books = () => {
                                      children={<AddBookForm setBooks={setBooks} setOpen={setOpen}/>}/>
                         </div>
                     }
+                </div>
+                <div>
+                    <TextField
+                        id="search"
+                        label="Пошук"
+                        variant="standard"
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                        style={{width: 300}}
+                    />
+                    <Button variant="contained" color="primary" onClick={() => toSearch()}>Пошук</Button>
                 </div>
                 <FormControl sx={{m: 1, minWidth: 120}}>
                     <InputLabel>Кількість</InputLabel>

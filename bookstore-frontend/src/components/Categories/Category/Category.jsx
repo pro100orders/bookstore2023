@@ -39,9 +39,11 @@ const Category = ({index, category, setModalEdit}) => {
                 <h2>Кількість книг : {category.countBooks}</h2>
             </div>
             <div>
-                <Button variant="outlined" onClick={edit} style={{marginRight: '5px'}}>Edit</Button>
+                <Button variant="outlined" onClick={edit} style={{marginRight: '5px'}}>
+                    Редагувати
+                </Button>
                 <Button variant="outlined" onClick={e => setOpenDialog(true)}>
-                    Delete
+                    Видалити
                 </Button>
                 <Dialog
                     open={openDialog}

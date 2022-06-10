@@ -68,9 +68,13 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<BookListDTO> getAll(UserSecurity userSecurity) {
+    public List<BookListDTO> getAll(UserSecurity userSecurity, String search) {
         return bookMapper.toBookListDTO(
-                bookRepository.findAll(),
+                bookRepository.findAll().stream()
+                        .filter(book -> book.getName().contains(search) ||
+                                book.getAuthors().stream()
+                                        .anyMatch(author -> (author.getSurname() + author.getName()).contains(search)) ||
+                                book.getCategory().getName().contains(search)).toList(),
                 userSecurity == null ?
                         null
                         :
@@ -79,23 +83,23 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public BookListDTO setPhoto(MultipartFile file, Long bookId) {
-        Book entity = bookRepository.findById(bookId).orElseThrow();
-        entity.setImage(imageService.save(file, bookId));
+    public BookListDTO setImage(MultipartFile file, Long productId) {
+        Book entity = bookRepository.findById(productId).orElseThrow();
+        entity.setImage(imageService.save(file, productId));
         return bookMapper.toBookListDTO(
                 bookRepository.save(entity), null
         );
     }
 
     @Override
-    public boolean updatePhoto(MultipartFile file, Long bookId) {
-        Book book = bookRepository.findById(bookId).orElseThrow();
+    public boolean updateImage(MultipartFile file, Long productId) {
+        Book book = bookRepository.findById(productId).orElseThrow();
         return imageService.update(book.getImage(), file);
     }
 
     @Override
-    public boolean deletePhoto(Long bookId) {
-        Book book = bookRepository.findById(bookId).orElseThrow();
+    public boolean deleteImage(Long productId) {
+        Book book = bookRepository.findById(productId).orElseThrow();
         return imageService.delete(book.getImage());
     }
 
@@ -104,26 +108,5 @@ public class BookServiceImpl implements BookService {
     @Transactional(readOnly = true)
     public long getCount() {
         return bookRepository.getCount();
-    }
-    
-    @Override
-    public List<BookListDTO> getPageBooks(int page, int size, UserSecurity userSecurity) {
-        List<Book> books = bookRepository.findAll();
-        if(books.size() < --page * size) {
-            throw new IllegalArgumentException("Нема такої кількості книг");
-        }
-        if(books.size() >= ++page * size) {
-            books = books.subList((--page * size), (++page * size));
-        }
-        else {
-            books = books.subList((--page * size), books.size());
-        }
-        return bookMapper.toBookListDTO(
-                books,
-                userSecurity == null ?
-                        null
-                        :
-                        userRepository.findById(userSecurity.getId()).orElseThrow().getWishList()
-        );
     }
 }

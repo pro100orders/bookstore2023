@@ -28,7 +28,7 @@ public class AuthorizationController {
     private final AuthenticationManager authenticationManager;
 
     @PostMapping("/registration")
-    public ResponseEntity registration(
+    public ResponseEntity<Void> registration(
             @Valid @RequestBody UserCreateDTO dto
     ) {
         userService.create(dto);

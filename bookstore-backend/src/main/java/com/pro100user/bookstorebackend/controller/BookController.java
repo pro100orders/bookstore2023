@@ -28,9 +28,10 @@ public class BookController {
 
     @GetMapping
     public List<BookListDTO> books(
+            @RequestParam(name = "search", required = false, defaultValue = "") String search,
             @CurrentUser UserSecurity userSecurity
     ) {
-        return bookService.getAll(userSecurity);
+        return bookService.getAll(userSecurity, search);
     }
 
     @GetMapping("{id}")
@@ -62,27 +63,28 @@ public class BookController {
         return bookService.delete(id);
     }
 
-    @PostMapping("photo/{id}")
-    public BookListDTO setPhoto(
+
+    @PostMapping("image/{id}")
+    public BookListDTO setImage(
             @RequestParam("image") MultipartFile file,
             @PathVariable("id") Long bookId
     ) {
-        return bookService.setPhoto(file, bookId);
+        return bookService.setImage(file, bookId);
     }
 
-    @PutMapping("photo/{id}")
-    public boolean updatePhoto(
+    @PutMapping("image/{id}")
+    public boolean updateImage(
             @RequestParam("image") MultipartFile file,
             @PathVariable("id") Long bookId
     ) {
-        return bookService.updatePhoto(file, bookId);
+        return bookService.updateImage(file, bookId);
     }
 
-    @DeleteMapping("photo/{id}")
-    public boolean deletePhoto(
+    @DeleteMapping("image/{id}")
+    public boolean deleteImage(
             @PathVariable("id") Long bookId
     ) {
-        return bookService.deletePhoto(bookId);
+        return bookService.deleteImage(bookId);
     }
 
 

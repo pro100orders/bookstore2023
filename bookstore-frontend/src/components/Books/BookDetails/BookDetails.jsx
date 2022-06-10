@@ -113,7 +113,7 @@ const BookDetails = () => {
                                     }
                                 </Typography>
                                 <Typography variant="h5" component="div">
-                                    Ціна : {book.price} грн.
+                                    Ціна : {book.price}грн.
                                 </Typography>
                                 <Typography variant="h5" component="div">
                                     Категорія : {book.category.name}
@@ -156,9 +156,12 @@ const BookDetails = () => {
                                                       likeBook(book.id)
                                               }}
                                     />
-                                    <Button variant="contained" color="success" onClick={() => addToBasket(book.id)}>
-                                        Додати в кошик
-                                    </Button>
+                                    {
+                                        book.amount !== 0 &&
+                                        <Button variant="contained" color="success" onClick={() => addToBasket(book.id)}>
+                                            Додати в кошик
+                                        </Button>
+                                    }
                                 </div>
                                 {
                                     roles && roles.includes("ROLE_ADMIN") &&

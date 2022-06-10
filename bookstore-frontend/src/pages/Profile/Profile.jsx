@@ -2,10 +2,13 @@ import React, {useEffect, useState} from 'react';
 import $api from "../../http";
 import {toastr} from "react-redux-toastr";
 import {Button, Typography} from "@mui/material";
+import {useNavigate} from "react-router-dom";
 
 const Profile = ({setModalProfile, setModalProfileEdit}) => {
 
     const [user, setUser] = useState({});
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         $api.get('/user/profile')
@@ -58,7 +61,10 @@ const Profile = ({setModalProfile, setModalProfileEdit}) => {
                 </Button>
             </div>
             <div style={{marginTop: 2}}>
-                <Button variant="contained" color="primary">
+                <Button variant="contained" color="primary" onClick={e => {
+                    setModalProfile(false);
+                    navigate("/orders");
+                }}>
                     Мої замовлення
                 </Button>
             </div>
