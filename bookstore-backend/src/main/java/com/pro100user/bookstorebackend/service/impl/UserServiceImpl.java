@@ -108,6 +108,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<UserDTO> getAll() {
         return userMapper.toUserDTO(
                 userRepository.findAll()
@@ -187,6 +188,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<OrderDTO> getOrders(Long userId) {
         User user = userRepository.findById(userId).orElseThrow();
         return orderMapper.toOrderDTO(

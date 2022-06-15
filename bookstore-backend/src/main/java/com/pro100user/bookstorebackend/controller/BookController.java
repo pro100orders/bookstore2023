@@ -67,24 +67,24 @@ public class BookController {
     @PostMapping("image/{id}")
     public BookListDTO setImage(
             @RequestParam("image") MultipartFile file,
-            @PathVariable("id") Long bookId
+            @PathVariable("id") Long productId
     ) {
-        return bookService.setImage(file, bookId);
+        return bookService.setImage(file, productId);
     }
 
     @PutMapping("image/{id}")
     public boolean updateImage(
             @RequestParam("image") MultipartFile file,
-            @PathVariable("id") Long bookId
+            @PathVariable("id") Long productId
     ) {
-        return bookService.updateImage(file, bookId);
+        return bookService.updateImage(file, productId);
     }
 
     @DeleteMapping("image/{id}")
     public boolean deleteImage(
-            @PathVariable("id") Long bookId
+            @PathVariable("id") Long productId
     ) {
-        return bookService.deleteImage(bookId);
+        return bookService.deleteImage(productId);
     }
 
 
