@@ -55,7 +55,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public boolean delete(Long categoryId) {
-        if (categoryRepository.findById(categoryId).orElseThrow().getBooks().isEmpty())
+        if (!categoryRepository.findById(categoryId).orElseThrow().getBooks().isEmpty())
             throw new IllegalArgumentException("Ви не можете видалити цю категорію");
         categoryRepository.deleteById(categoryId);
         return true;
