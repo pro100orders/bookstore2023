@@ -39,7 +39,7 @@ const BookDetails = () => {
 
     const navigateToLogin = () => {
         navigate("/login");
-        toastr.info("Bookstore", "Щоб переглядати список бажаного потрібно авторизуватись");
+        toastr.info("Bookstore", "Щоб додати в список бажаного потрібно авторизуватись");
     }
 
     const likeBook = (id) => {

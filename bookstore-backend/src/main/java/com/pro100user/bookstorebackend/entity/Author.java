@@ -28,7 +28,6 @@ public class Author implements Serializable {
     private String surname;
 
 
-    @ManyToMany(mappedBy = "authors", fetch = FetchType.LAZY,
-            targetEntity = Book.class)
+    @ManyToMany(mappedBy = "authors", fetch = FetchType.LAZY, targetEntity = Book.class)
     private List<Book> books = new ArrayList<>();
 }

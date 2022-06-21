@@ -17,7 +17,7 @@ const Book = ({book, setBooks, isBasket}) => {
     const navigateToLogin = (i) => {
         navigate("/login");
         if(i === 1) {
-            toastr.info("Bookstore", "Щоб переглядати список бажаного потрібно авторизуватись");
+            toastr.info("Bookstore", "Щоб додати в список бажаного потрібно авторизуватись");
         }
         else {
             toastr.info("Bookstore", "Щоб добавити в кошик потрібно авторизуватись");

@@ -30,6 +30,6 @@ public class Category implements Serializable {
     private String name;
 
 
-    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY, orphanRemoval = true, targetEntity = Book.class)
+    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY, targetEntity = Book.class)
     private List<Book> books = new ArrayList<>();
 }

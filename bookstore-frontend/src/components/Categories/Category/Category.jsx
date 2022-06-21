@@ -18,14 +18,14 @@ const Category = ({index, category, setModalEdit}) => {
     };
 
     const remove = () => {
-        $api.post("/categories", category.id)
+        $api.delete("/categories/" + category.id)
             .then(response => {
                 dispatch({type: "DELETE_CATEGORY", payload: category});
                 setOpenDialog(false);
             })
             .catch(reason => {
                 if (reason.response.status === 400) {
-                    toastr.error('Bookstore', reason.response.data);
+                    toastr.error('Bookstore', reason.response.data.error);
                 } else {
                     toastr.error("Bookstore", "Виникли технічні проблеми");
                 }
@@ -72,13 +72,13 @@ const Category = ({index, category, setModalEdit}) => {
                                 )
                                 :
                                 <div>
-                                    <Button onClick={e => setOpenDialog(false)}>No</Button>
+                                    <Button onClick={e => setOpenDialog(false)}>Ні</Button>
                                     <Button onClick={e => {
                                         remove();
                                         setOpenDialog(false);
                                     }}
                                     >
-                                        Yes
+                                        Да
                                     </Button>
                                 </div>
                         }

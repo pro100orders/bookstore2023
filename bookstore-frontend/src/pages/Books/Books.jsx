@@ -27,6 +27,7 @@ const Books = () => {
     const [selectedLanguages, setSelectedLanguages] = useState([]);
 
     const [search, setSearch] = useState('');
+    const [isSearch, setIsSearch] = useState(false);
 
     useEffect(() => {
         setLoading(true);
@@ -68,20 +69,27 @@ const Books = () => {
     }, [books, selectedAuthors, selectedCategories, selectedLanguages])
 
     useEffect(() => {
-        $api.get("/books/count")
-            .then(response => {
-                setAllPage(response.data.count);
-            })
-            .catch(reason => {
-                toastr.error("Bookstore", "Виникли технічні проблеми");
-            });
-    }, [])
+        if(isSearch) {
+            setIsSearch(false);
+        }
+        else {
+            $api.get("/books/count")
+                .then(response => {
+                    setAllPage(response.data.count);
+                })
+                .catch(reason => {
+                    toastr.error("Bookstore", "Виникли технічні проблеми");
+                });
+        }
+    }, [books])
 
     const toSearch = () => {
         $api.get("/books?search=" + search)
             .then(response => {
                 setBooks(response.data);
                 setAllPage(response.data.length);
+                setPage(1);
+                setIsSearch(true);
             })
             .catch(reason => {
                 toastr.error("Bookstore", "Виникли технічні проблеми");
