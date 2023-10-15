@@ -20,7 +20,6 @@ const Header = () => {
     const roles = useSelector(state => state.auth.user.roles);
 
     const [activeTab, setActiveTab] = useState(1);
-    const activeClass = "is-active"
 
     const dispatch = useDispatch();
 
@@ -46,45 +45,43 @@ const Header = () => {
         <AppBar position="static">
             <Container maxWidth="xl">
                 <Toolbar sx={{display: "flex", justifyContent: "space-between"}}>
-                    <div>
+                    <div style={{ display: "flex" }}>
                         <Typography variant="h5" component="div">
                             <Logo/>
                             <NavLink to={'/'}
-                                     className={`header-link ${activeTab === 1 ? activeClass : ''}`}
-                                     onClick={e => setActiveTab(1)}
+                                     className={'header-link'}
+                                     onClick={() => setActiveTab(1)}
                             >
                                 <b>Bookstore</b>
                             </NavLink>
                         </Typography>
-                    </div>
-                    <div>
                         <Typography variant="h6" component="div">
                             <NavLink to="/books"
-                                     className={`header-link ${activeTab === 2 ? activeClass : ''}`}
-                                     onClick={e => setActiveTab(2)}
+                                     className={'header-link'}
+                                     onClick={() => setActiveTab(2)}
                             >
                                 Книги
                             </NavLink>
                             {(roles && roles.includes("ROLE_ADMIN")) && (
                                 <>
                                     <NavLink to={'/categories'}
-                                             className={`header-link ${activeTab === 3 ? activeClass : ''}`}
-                                             onClick={e => setActiveTab(3)}
+                                             className={'header-link'}
+                                             onClick={() => setActiveTab(3)}
                                     >
                                         Категорії
                                     </NavLink>
                                     <NavLink to={'/authors'}
-                                             className={`header-link ${activeTab === 4 ? activeClass : ''}`}
-                                             onClick={e => setActiveTab(4)}
+                                             className={'header-link'}
+                                             onClick={() => setActiveTab(4)}
                                     >
                                         Автори
                                     </NavLink>
-                                    <NavLink to={'/admin'}
-                                             className={`header-link ${activeTab === 5 ? activeClass : ''}`}
-                                             onClick={e => setActiveTab(5)}
+                                    {/*<NavLink to={'/admin'}
+                                             className={'header-link'}
+                                             onClick={() => setActiveTab(5)}
                                     >
                                         Адмін
-                                    </NavLink>
+                                    </NavLink>*/}
                                 </>
                             )}
                         </Typography>
@@ -93,8 +90,8 @@ const Header = () => {
                         {((roles && roles.length) >= 1 && !roles.includes("ROLE_GUEST")) ?
                             <>
                                 <NavLink to={'/wish-list'}
-                                         className={`header-link ${activeTab === 6 ? activeClass : ''}`}
-                                         onClick={e => setActiveTab(6)}
+                                         className={'header-link'}
+                                         onClick={() => setActiveTab(6)}
                                 >
                                     <Tooltip title="Список бажаного">
                                         <IconButton>
@@ -108,7 +105,7 @@ const Header = () => {
                                     </Tooltip>
                                 </NavLink>
                                 <NavLink to={'/basket'}
-                                         className={`header-link ${activeTab === 7 ? activeClass : ''}`}
+                                         className={'header-link'}
                                          onClick={e => setActiveTab(7)}
                                 >
                                     <Tooltip title="Кошик">
@@ -126,7 +123,7 @@ const Header = () => {
                             :
                             <>
                                 <NavLink to={'/login'}
-                                         onClick={e => toastr.info("Bookstore", "Щоб переглядати список бажаного потрібно авторизуватись")}
+                                         onClick={() => toastr.info("Bookstore", "Щоб переглядати список бажаного потрібно авторизуватись")}
                                 >
                                     <Tooltip title="Спиоск бажаного">
                                         <IconButton>
@@ -135,7 +132,7 @@ const Header = () => {
                                     </Tooltip>
                                 </NavLink>
                                 <NavLink to={'/login'}
-                                         onClick={e => toastr.info("Bookstore", "Щоб переглядати кошик потрібно авторизуватись")}
+                                         onClick={() => toastr.info("Bookstore", "Щоб переглядати кошик потрібно авторизуватись")}
                                 >
                                     <Tooltip title="Кошик">
                                         <IconButton>
@@ -149,8 +146,8 @@ const Header = () => {
                             (
                                 <Typography variant="h6" component="div" display={"flex"}>
                                     <NavLink to='/'
-                                             className={`header-link ${activeTab === 8 ? activeClass : ''}`}
-                                             onClick={e => setModalProfile(true)}
+                                             className={'header-link'}
+                                             onClick={() => setModalProfile(true)}
                                     >
                                         Профіль
                                     </NavLink>
@@ -173,14 +170,14 @@ const Header = () => {
                             (
                                 <Typography variant="h6" component="div">
                                     <NavLink to={'/login'}
-                                             className={`header-link ${activeTab === 9 ? activeClass : ''}`}
-                                             onClick={e => setActiveTab(9)}
+                                             className={'header-link'}
+                                             onClick={() => setActiveTab(9)}
                                     >
                                         Авторизація
                                     </NavLink>
                                     <NavLink to={'/registration'}
-                                             className={`header-link ${activeTab === 10 ? activeClass : ''}`}
-                                             onClick={e => setActiveTab(10)}
+                                             className={'header-link'}
+                                             onClick={() => setActiveTab(10)}
                                     >
                                         Реєстрація
                                     </NavLink>

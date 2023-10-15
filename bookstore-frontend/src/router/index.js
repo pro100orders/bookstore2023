@@ -47,7 +47,7 @@ const AppRoutes = () => {
 
         if (roles && roles.includes("ROLE_ADMIN")) {
             const adminRoutes = [
-                {path: "/admin", component: Admin},
+                /*{path: "/admin", component: Admin},*/
                 {path: "/categories", component: Categories},
                 {path: "/authors", component: Authors},
             ];

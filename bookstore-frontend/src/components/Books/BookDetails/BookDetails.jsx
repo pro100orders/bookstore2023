@@ -81,11 +81,11 @@ const BookDetails = () => {
     }
 
     return (
-        <Container maxWidth="xl" sx={{marginTop: "64px", paddingTop: "10px"}} style={{minHeight: "100vh"}}>
+        <Container maxWidth="xl" sx={{paddingTop: "10px"}} style={{minHeight: "100vh"}}>
             {
                 isLoading ?
                     <div>
-                        ff
+                        Loading...
                     </div>
                     :
                     <div>
@@ -95,11 +95,11 @@ const BookDetails = () => {
                                      children={<EditBookForm book={book} setOpen={setOpen}/>}/>
                         }
                         <Typography variant="h2" component="div">
-                            Книга {book.name}
+                            Книга "{book.name}"
                         </Typography>
-                        <div style={{display: "flex"}}>
+                        <div style={{display: "flex", gap: 16}}>
                             <div>
-                                <img src={"http://localhost:8080/files/" + book.image} alt={book.name}/>
+                                <img src={"http://localhost:8080/files/" + book.image} alt={book.name} style={{ width: 400, height: 600, objectFit: 'cover' }}/>
                             </div>
                             <div>
                                 <Typography variant="h5" component="div">
@@ -145,7 +145,7 @@ const BookDetails = () => {
                                 <Typography variant="h5" component="div">
                                     Кількість сторанок : {book.numberPages}
                                 </Typography>
-                                <div style={{display: "flex", justifyContent: "space-between"}}>
+                                <div style={{display: "flex", justifyContent: "space-between", marginTop: 15}}>
                                     <Checkbox icon={<FavoriteBorder/>}
                                               checkedIcon={<Favorite/>}
                                               checked={like}
@@ -165,7 +165,7 @@ const BookDetails = () => {
                                 </div>
                                 {
                                     roles && roles.includes("ROLE_ADMIN") &&
-                                    <div style={{display: "flex", justifyContent: "space-between", marginTop: 5}}>
+                                    <div style={{display: "flex", justifyContent: "space-between", marginTop: 15}}>
                                         <Button variant="contained" color="warning" onClick={() => setOpen(true)}>
                                             Редагувати
                                         </Button>

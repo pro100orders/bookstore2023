@@ -63,12 +63,14 @@ const Book = ({book, setBooks, isBasket}) => {
 
     return (
         <Card sx={{maxWidth: "200px", margin: 1}}>
+            <NavLink to={`/books/${book.id}`}>
             <CardMedia
                 component="img"
                 image={"http://localhost:8080/files/" + book.image}
                 alt="book"
                 sx={{width: "200px", height: "370px"}}
             />
+            </NavLink>
             <CardContent sx={{height: 140}}>
                 <Typography gutterBottom variant="body1" component="div">
                     <NavLink to={`/books/${book.id}`}>{book.name}</NavLink>

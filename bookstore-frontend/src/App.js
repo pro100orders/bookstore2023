@@ -7,6 +7,15 @@ import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
 
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
+import {createTheme, ThemeProvider} from "@mui/material";
+import {cyan, purple} from "@mui/material/colors";
+
+const theme = createTheme({
+    palette: {
+        primary: cyan,
+        secondary: purple,
+    },
+});
 
 function App() {
 
@@ -26,7 +35,7 @@ function App() {
     }, [token]);
 
     return (
-        <>
+        <ThemeProvider theme={theme}>
             <Header/>
             <AppRouter/>
             <Footer/>
@@ -39,7 +48,7 @@ function App() {
                 progressBar
                 closeOnToastrClick
             />
-        </>
+        </ThemeProvider>
     );
 }
 

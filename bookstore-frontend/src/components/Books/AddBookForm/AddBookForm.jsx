@@ -69,6 +69,7 @@ const AddBookForm = ({setBooks, setOpen}) => {
                             setOpen(false);
                         })
                         .catch(reason => {
+                            setOpen(false);
                             console.log(reason.response.data.error);
                         })
                 }
